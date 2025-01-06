@@ -1,0 +1,135 @@
+DOTFILES_REPO: https://github.com/waynehuang13/dotfiles.git
+DOTFILES_BRANCH: main
+GIT_CONFIG_NAME: Wayne Huang
+GIT_CONFIG_EMAIL: waynehuang13@gmail.com
+
+DOTFILES_ITEMS:
+  - ssh
+  - warp
+  - zsh
+  - ansible.cfg
+  - zshenv
+  - zshrc
+
+BREW_CASK_ITEMS:
+  - warp
+  - telegram
+  - visual-studio-code
+  - sourcetree
+  - vlc
+  - docker
+  - google-chrome
+  - slack
+  - font-hack-nerd-font
+  - bitwarden
+  - utm
+  # - 1password
+  # - android-sdk
+  # - android-studio
+  # - datagrip
+  # - dropbox
+  # - figma
+  # - google-cloud-sdk
+  # - iterm2
+  # - kindle
+  # - ngrok
+  # - sublime-text
+  # - zoom
+  # - tuple
+
+CONFIG_ITEMS:
+  - bat
+  - helix
+  - iterm2
+  - neofetch
+  - nvim
+  - starship.toml
+
+BREW_ITEMS:
+  - eza
+  - starship
+  - unzip
+  - neovim
+  - awscli
+  - curl
+  - direnv
+  - zoxide
+  - gpg
+  - kubectx
+  - kubernetes-cli
+  - kubernetes-helm
+  - mas
+  - openssl
+  - htop
+  - readline
+  - neofetch
+  - bat
+  - asdf
+  - jq
+  - nmap
+  - iperf3
+  - sops
+  # - autoconf
+  # - automake
+  # - aws-iam-authenticator
+  # - bfg
+  # - coreutils
+  # - dbt@0.18.0
+  # - dnsmasq
+  # - fzf
+  # - gnu-time
+  # - imagemagick@6
+  # - libtool
+  # - libxslt
+  # - libyaml
+  # - pkg-config
+  # - postgresql
+  # - rcm
+  # - redis
+  # - sqlite3
+  # - tmux
+  # - unixodbc
+  # - watchman
+  # - xz
+  # - yarn
+  # - zlib
+  # - zsh
+
+VSCODE_EXTENSIONS:
+  - aaron-bond.better-comments
+  - alefragnani.Bookmarks
+  - streetsidesoftware.code-spell-checker
+  - adpyke.codesnap
+  - usernamehw.errorlens
+  - eamodio.gitlens
+  - GitHub.copilot
+  - Equinusocio.vsc-material-theme-icons
+  - oderwat.indent-rainbow
+  - esbenp.prettier-vscode
+  - gruntfuggly.todo-tree
+  - yzhang.markdown-all-in-one
+  - chrmarti.regex
+  - akamud.vscode-theme-onedark
+  - equinusocio.vsc-material-theme-icons
+  # - donjayamanne.githistory
+  # - MS-vsliveshare.vsliveshare
+  # - Codium.codium
+  #     - apollographql.vscode-apollo
+  #     - bradlc.vscode-tailwindcss
+  #     - castwide.solargraph
+  #     - clinyong.vscode-css-modules
+  #     - eamodio.gitlens
+  #     - jakebecker.elixir-ls
+  #     - kaiwood.endwise
+  #     - karunamurti.haml
+  #     - ms-vscode-remote.vscode-remote-extensionpack
+  #     - ms-vscode.vscode-typescript-tslint-plugin
+  #     - msjsdiag.debugger-for-chrome
+  #     - rebornix.ruby
+  #     - richie5um2.vscode-sort-json
+  #     - Tyriar.sort-lines
+  #     - vscodevim.vim
+  #     - wholroyd.jinja
+  #     - wingrunr21.vscode-ruby
+  #     - xabikos.javascriptsnippets
+  #     - fabiospampinato.vscode-todo-plus

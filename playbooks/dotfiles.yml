@@ -1,0 +1,67 @@
+---
+
+- debug:
+    msg: Applying dotfiles
+
+- name: Check if dotfiles is fetched
+  stat:
+    path: "$HOME/.dotfiles"
+  register: d
+
+- name: Clone dotfiles repo
+  shell: |
+    git clone --recursive "{{ DOTFILES_REPO }}" "$HOME/.dotfiles"
+  ignore_errors: true
+  # no_log: True
+  when: not d.stat.exists
+
+
+- name: Fetch latest commits
+  shell: |
+    cd $HOME/.dotfiles
+    git remote set-url origin {{ DOTFILES_REPO }}
+    git checkout {{ DOTFILES_BRANCH }}
+    git fetch --all
+    git reset --hard origin/{{ DOTFILES_BRANCH }}
+  ignore_errors: true
+  when: d.stat.exists
+
+
+- name: Symlink dotfiles files
+  file:
+    src: "$HOME/.dotfiles/.{{ item }}"
+    dest: "$HOME/.{{ item }}"
+    state: link
+    force: yes
+  with_items: "{{ DOTFILES_ITEMS }}"
+
+- name: Create .gitconfig
+  template:
+    src: templates/.gitconfig.j2
+    dest: "/Users/wayne/.gitconfig"
+    owner: "{{ lookup('env', 'USER') }}"
+    mode: '0644'
+
+###### .ssh_keys ######
+- name: Create .ssh_keys dir
+  file:
+    path: "$HOME/.ssh_keys"
+    state: directory
+    mode: '0700'
+###### end of .ssh_keys ######
+
+###### .config ######
+- name: Create .config dir
+  file:
+    path: "$HOME/.config"
+    state: directory
+    mode: '0755'
+
+- name: Symlink .config files
+  file:
+    src: "$HOME/.dotfiles/.config/{{ item }}"
+    dest: "$HOME/.config/{{ item }}"
+    state: link
+    force: yes
+  with_items: "{{ CONFIG_ITEMS }}"
+###### end of .config ######

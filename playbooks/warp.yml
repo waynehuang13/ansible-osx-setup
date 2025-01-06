@@ -1,0 +1,100 @@
+- name: Set valued key for AgentModeSuggestionsBlockState
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: AgentModeSuggestionsBlockState
+    type: string
+    value: '"DoNotShow"'
+    state: present
+
+- name: Set valued key for FontName
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: FontName
+    type: string
+    value: '"Hack Nerd Font Mono"'
+    state: present
+
+- name: Set valued key for FontSize
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: FontSize
+    type: string
+    value: "13.0"
+    state: present
+
+- name: Set valued key for Theme
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: Theme
+    type: string
+    value: '{"Custom":{"name":"Tokyo Night","path":"/Users/wayne/.warp/themes/tokyo_night.yml"}}'
+    state: present
+
+- name: Set valued key for OverrideBlur
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: OverrideBlur
+    type: string
+    value: 80
+    state: present
+
+- name: Set valued key for OverrideOpacity
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: OverrideOpacity
+    type: string
+    value: 80
+    state: present
+
+- name: Set bool valued key for SystemTheme
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: SystemTheme
+    type: string
+    value: "false"
+    state: present
+
+- name: Set bool valued key for HonorPS1
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: HonorPS1
+    type: string
+    value: "false"
+    state: present
+
+- name: Set bool valued key for ShouldDimInactivePanes
+  community.general.osx_defaults:
+    domain: read dev.warp.Warp-Stable
+    key: ShouldDimInactivePanes
+    type: boolean
+    value: false
+    state: present
+    host: currentHost
+
+- name: Set bool valued key for TelemetryEnabled
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: TelemetryEnabled
+    type: boolean
+    value: false
+    state: present
+    host: currentHost
+
+- name: Set bool valued key for AIAutoDetectionEnabled
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: AIAutoDetectionEnabled
+    type: boolean
+    value: true
+    state: present
+    host: currentHost
+
+
+- name: Set bool valued key for DidShowActiveAIPermissionsDialog
+  community.general.osx_defaults:
+    domain: dev.warp.Warp-Stable
+    key: DidShowActiveAIPermissionsDialog
+    type: boolean
+    value: true
+    state: present
+    host: currentHost

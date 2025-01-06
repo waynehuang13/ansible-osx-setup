@@ -1,0 +1,3 @@
+https://github.com/TalkingQuickly/ansible-osx-setup/tree/master
+https://docs.ansible.com/ansible/latest/collections/community/general/homebrew_module.html
+https://opensource.com/article/22/6/install-software-macos-ansible-homebrew

@@ -1,0 +1,117 @@
+---
+- hosts: localhost
+  vars_files:
+    - global_vars.yml
+
+  tasks:
+    - name: Check if Homebrew is already installed
+      stat:
+        path: /opt/homebrew/bin/brew
+      register: b
+
+    - name: Install Homebrew
+      script: install-homebrew.sh
+      when: not b.stat.exists
+
+    - name: Make sure homebrew bin is in path
+      ansible.builtin.lineinfile:
+        path: /etc/paths
+        state: present
+        line: '/opt/homebrew/bin'
+      become: true
+      become_user: root
+
+    # - name: 'add custom homebrew repos'
+    #   community.general.homebrew_tap:
+    #     name: [
+          # adoptopenjdk/openjdk,
+          # fishtown-analytics/dbt,
+          # heroku/brew,
+          # homebrew/cask-versions,
+          # thoughtbot/formulae,
+          # weaveworks/tap,
+        # ]
+
+    - name: Install core packages via brew casks
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        install_options: 'appdir=/Applications'
+        accept_external_apps: true
+      ignore_errors: yes
+      with_items: "{{ BREW_CASK_ITEMS }}"
+      tags:
+        - install_brew_cask_pkg
+
+    - name: "Install homebrew packages"
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+        update_homebrew: yes
+      with_items: "{{ BREW_ITEMS }}"
+      tags:
+        - install_brew_pkg
+
+
+    - name: "Install from Mac app store"
+      shell: mas install {{ item }}
+      ignore_errors: true
+      with_items:
+        - 497799835 # xcode
+
+    - name: Get the path to ZSH
+      become: false
+      local_action: command which zsh
+      register: zsh_path
+
+    - name: "Ensure homebrew zsh is in allowed shells"
+      lineinfile:
+        path: /etc/shells
+        line: "{{ zsh_path.stdout }}"
+      become: true
+
+    - name: Set ZSH as the default shell
+      shell: chsh -s $(which zsh) {{ lookup('env', 'USER') }}
+      become: true
+
+##### configs from settings sync  #####
+    - name: Create a default VSCode configuration
+      template:
+        src: templates/vscode-settings.json.j2
+        dest: /Users/{{ lookup('env', 'USER') }}/Library/Application Support/Code/User/settings.json
+        owner: "{{ lookup('env', 'USER') }}"
+        force: yes
+      tags:
+        - apply_code_settings
+
+    # - name: Create a default VSCode keybinding configuration
+    #   template:
+    #     src: templates/vscode-keybindings.json.j2
+    #     dest: /Users/{{ lookup('env', 'USER') }}/Library/Application Support/Code/User/keybindings.json
+    #     owner: "{{ lookup('env', 'USER') }}"
+    #     force: yes
+
+    # Add something which ensures path is set here
+    - name: Install VSCode extensions
+      shell: /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension {{ item }}
+      with_items: "{{ VSCODE_EXTENSIONS }}"
+      tags:
+        - install_code_extensions
+##### configs from settings sync - END #####
+
+    - name: Apply dotfiles
+      ansible.builtin.include_tasks:
+        file: playbooks/dotfiles.yml
+        apply:
+          tags:
+            - apply_dotfiles
+      tags:
+        - always
+
+    - name: Apply Warp settings
+      ansible.builtin.include_tasks:
+        file: playbooks/warp.yml
+        apply:
+          tags:
+            - apply_warp
+      tags:
+        - always
