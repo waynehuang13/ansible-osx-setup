@@ -6,18 +6,26 @@
   tasks:
     - name: Check if Homebrew is already installed
       stat:
-        path: /opt/homebrew/bin/brew
+        path: "{{ item }}"
+      with_items:
+        - /opt/homebrew/bin/brew
+        - /usr/local/Homebrew/bin/brew
       register: b
 
+    - set_fact:
+        brew_path="{{ item.stat.path }}"
+      loop: "{{ b.results }}"
+      when: item.stat.exists
+
     - name: Install Homebrew
-      script: install-homebrew.sh
-      when: not b.stat.exists
+      script: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      when: brew_path is not defined
 
     - name: Make sure homebrew bin is in path
       ansible.builtin.lineinfile:
         path: /etc/paths
         state: present
-        line: '/opt/homebrew/bin'
+        line: "{{ brew_path }}"
       become: true
       become_user: root
 
