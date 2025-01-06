@@ -28,7 +28,8 @@
     domain: dev.warp.Warp-Stable
     key: Theme
     type: string
-    value: '{"Custom":{"name":"Tokyo Night","path":"{{ lookup("env", "HOME") }}/.warp/themes/tokyo_night.yml"}}'
+    value: ' {"Custom":{"name":"Tokyo Night","path":"{{ lookup("env", "HOME")}}/.warp/themes/tokyo_night.yml"}} '
+    # value: '{"Custom":{"name":"Tokyo Night","path":"/Users/wayne/.warp/themes/tokyo_night.yml"}}'
     state: present
 
 - name: Set valued key for OverrideBlur
