@@ -13,7 +13,7 @@
       register: b
 
     - set_fact:
-        brew_path="{{ item.stat.path }}"
+        brew_path="{{ item.stat.path.split('/brew')[0] }}"
       loop: "{{ b.results }}"
       when: item.stat.exists
 
@@ -26,6 +26,7 @@
         path: /etc/paths
         state: present
         line: "{{ brew_path }}"
+      when: brew_path is defined
       become: true
       become_user: root
 
