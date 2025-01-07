@@ -2,15 +2,24 @@
 - debug:
     msg: Applying asdf plugins
 
-- name: Install asdf plugins
+- name: Load asdf.sh
+  shell: |
+    . $(brew --prefix asdf)/libexec/asdf.sh
+  ignore_errors: true
+
+- name: Install asdf plugin - python
   shell: |
     asdf install python 3.11.9
     asdf global python 3.11.9
     asdf plugin add python
-    asdf plugin add direnv 0.35.0
-    asdf direnv setup --shell zsh --version latest
   ignore_errors: true
   # no_log: True
+
+- name: Install asdf plugin - direnv
+  shell: |
+    asdf plugin add direnv
+    asdf direnv setup --shell zsh --version latest
+  ignore_errors: true
 
 - name: Symbolic link asdf config
   template:
