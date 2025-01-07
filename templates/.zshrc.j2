@@ -34,5 +34,5 @@ source $ZSH/oh-my-zsh.sh
 if [ -f ~/.zshrc.personal.after ]; then . ~/.zshrc.personal.after; fi
 
 # Load asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+. $(brew --prefix asdf)/libexec/asdf.sh
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

@@ -124,3 +124,12 @@
             - apply_warp
       tags:
         - always
+
+    - name: Apply asdf settings
+      ansible.builtin.include_tasks:
+        file: playbooks/asdf.yml
+        apply:
+          tags:
+            - apply_asdf
+      tags:
+        - always

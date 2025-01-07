@@ -10,6 +10,8 @@ DOTFILES_ITEMS:
   - ansible.cfg
   - zshenv
   - zshrc
+  - envrc
+  - tool-versions
 
 BREW_CASK_ITEMS:
   - warp
@@ -69,6 +71,7 @@ BREW_ITEMS:
   - nmap
   - iperf3
   - sops
+  - ta-lib
   # - autoconf
   # - automake
   # - aws-iam-authenticator
