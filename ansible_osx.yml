@@ -12,8 +12,7 @@
         - /usr/local/Homebrew/bin/brew
       register: b
 
-    - set_fact:
-        brew_path="{{ item.stat.path.split('/brew')[0] }}"
+    - set_fact: brew_path="{{ item.stat.path.split('/brew')[0] }}"
       loop: "{{ b.results }}"
       when: item.stat.exists
 
@@ -33,18 +32,18 @@
     # - name: 'add custom homebrew repos'
     #   community.general.homebrew_tap:
     #     name: [
-          # adoptopenjdk/openjdk,
-          # fishtown-analytics/dbt,
-          # heroku/brew,
-          # homebrew/cask-versions,
-          # thoughtbot/formulae,
-          # weaveworks/tap,
-        # ]
+    # adoptopenjdk/openjdk,
+    # fishtown-analytics/dbt,
+    # heroku/brew,
+    # homebrew/cask-versions,
+    # thoughtbot/formulae,
+    # weaveworks/tap,
+    # ]
 
     - name: Install core packages via brew casks
       community.general.homebrew_cask:
         name: "{{ item }}"
-        install_options: 'appdir=/Applications'
+        install_options: "appdir=/Applications"
         accept_external_apps: true
       ignore_errors: yes
       with_items: "{{ BREW_CASK_ITEMS }}"
@@ -59,7 +58,6 @@
       with_items: "{{ BREW_ITEMS }}"
       tags:
         - install_brew_pkg
-
 
     - name: "Install from Mac app store"
       shell: mas install {{ item }}
@@ -82,15 +80,16 @@
       shell: chsh -s $(which zsh) {{ lookup('env', 'USER') }}
       become: true
 
-##### configs from settings sync  #####
-    - name: Create a default VSCode configuration
-      template:
-        src: templates/vscode-settings.json.j2
-        dest: /Users/{{ lookup('env', 'USER') }}/Library/Application Support/Code/User/settings.json
-        owner: "{{ lookup('env', 'USER') }}"
-        force: yes
-      tags:
-        - apply_code_settings
+    ##### configs from settings sync  #####
+    # GITHUB SYNC would do it
+    # - name: Create a default VSCode configuration
+    #   template:
+    #     src: templates/vscode-settings.json.j2
+    #     dest: /Users/{{ lookup('env', 'USER') }}/Library/Application Support/Code/User/settings.json
+    #     owner: "{{ lookup('env', 'USER') }}"
+    #     force: yes
+    #   tags:
+    #     - apply_code_settings
 
     # - name: Create a default VSCode keybinding configuration
     #   template:
@@ -100,12 +99,12 @@
     #     force: yes
 
     # Add something which ensures path is set here
-    - name: Install VSCode extensions
-      shell: /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension {{ item }}
-      with_items: "{{ VSCODE_EXTENSIONS }}"
-      tags:
-        - install_code_extensions
-##### configs from settings sync - END #####
+    # - name: Install VSCode extensions
+    #   shell: /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --install-extension {{ item }}
+    #   with_items: "{{ VSCODE_EXTENSIONS }}"
+    #   tags:
+    #     - install_code_extensions
+    ##### configs from settings sync - END #####
 
     - name: Apply dotfiles
       ansible.builtin.include_tasks:
@@ -125,11 +124,20 @@
       tags:
         - always
 
-    - name: Apply asdf settings
+    - name: Apply Warp settings
       ansible.builtin.include_tasks:
-        file: playbooks/asdf.yml
+        file: playbooks/zed.yml
         apply:
           tags:
-            - apply_asdf
+            - apply_zed
       tags:
         - always
+
+    # - name: Apply asdf settings
+    #   ansible.builtin.include_tasks:
+    #     file: playbooks/asdf.yml
+    #     apply:
+    #       tags:
+    #         - apply_asdf
+    #   tags:
+    #     - always

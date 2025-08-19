@@ -15,6 +15,7 @@ DOTFILES_ITEMS:
 
 BREW_CASK_ITEMS:
   - warp
+  - zed
   - telegram
   - visual-studio-code
   - sourcetree
@@ -49,29 +50,33 @@ CONFIG_ITEMS:
 
 BREW_ITEMS:
   - eza
+  - aider
   - starship
   - unzip
   - neovim
   - awscli
   - curl
-  - direnv
   - zoxide
   - gpg
   - kubectx
   - kubernetes-cli
-  - kubernetes-helm
   - mas
   - openssl
   - htop
   - readline
   - neofetch
   - bat
-  - asdf
   - jq
   - nmap
   - iperf3
   - sops
   - ta-lib
+  - tfenv
+  - tofuenv
+  - hashicorp/tap/packer
+  - uv
+  - ruff
+  - jupyterlab
   # - autoconf
   # - automake
   # - aws-iam-authenticator
@@ -114,6 +119,7 @@ VSCODE_EXTENSIONS:
   - chrmarti.regex
   - akamud.vscode-theme-onedark
   - equinusocio.vsc-material-theme-icons
+  - kevinrose.vsc-python-indent
   # - donjayamanne.githistory
   # - MS-vsliveshare.vsliveshare
   # - Codium.codium

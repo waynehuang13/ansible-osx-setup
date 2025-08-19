@@ -19,9 +19,8 @@
     domain: dev.warp.Warp-Stable
     key: FontSize
     type: string
-    value: "13.0"
+    value: "15.0"
     state: present
-
 
 - name: Set valued key for Theme
   community.general.osx_defaults:
@@ -90,7 +89,6 @@
     value: true
     state: present
     host: currentHost
-
 
 - name: Set bool valued key for DidShowActiveAIPermissionsDialog
   community.general.osx_defaults:
